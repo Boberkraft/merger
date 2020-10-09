@@ -1,5 +1,14 @@
 const prompts = require('prompts');
 
+async function tryAgainInput() {
+  return await prompts({
+      type: 'confirm',
+      name: 'tryAgain',
+      message: 'Try again?'
+    });
+};
+
+
 async function mergeInput() {
     return await prompts({
         type: 'confirm',
@@ -17,5 +26,6 @@ async function commitHeadlineInput(title) {
       });
 };
 
+module.exports.tryAgainInput = tryAgainInput;
 module.exports.mergeInput = mergeInput;
 module.exports.commitHeadlineInput = commitHeadlineInput;

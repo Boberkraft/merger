@@ -24,4 +24,10 @@ async function mergePullRequest(graphQLClient, id, commitHeadline) {
     console.log(`${kleur.green('✔')} ${kleur.bold(`merged ${mergePullRequest.pullRequest.url}`)}`);
 };
 
-module.exports.mergePullRequest = mergePullRequest;
+async function mergeAll(graphQLClient, prs, commitHeadline) {
+  var promises = prs.map((pr) => mergePullRequest(graphQLClient, pr.id, commitHeadline))
+  await Promise.all(promises);
+  console.log('All merged!');
+};
+
+module.exports.mergeAll = mergeAll;
