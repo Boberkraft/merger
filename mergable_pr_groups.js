@@ -4,6 +4,7 @@ const query = `
             nodes {
                 ... on PullRequest {
                     id
+                    number
                     title
                     body
                     url

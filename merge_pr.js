@@ -1,6 +1,6 @@
 const kleur = require('kleur');
 
-async function mergePullRequest(graphQLClient, id, commitHeadline) {
+async function mergePullRequest(graphQLClient, pr, commitHeadline) {
     const mutation = `
       mutation mergePullRequest($input: MergePullRequestInput!) {
         mergePullRequest(input: $input) {
@@ -13,9 +13,9 @@ async function mergePullRequest(graphQLClient, id, commitHeadline) {
 
     const variables = {
       input: {
-        pullRequestId: id,
+        pullRequestId: pr.id,
         mergeMethod: 'SQUASH',
-        commitHeadline: commitHeadline,
+        commitHeadline: `${commitHeadline} (#${pr.number})`,
         commitBody: ''
       }
     };
@@ -25,7 +25,7 @@ async function mergePullRequest(graphQLClient, id, commitHeadline) {
 };
 
 async function mergeAll(graphQLClient, prs, commitHeadline) {
-  var promises = prs.map((pr) => mergePullRequest(graphQLClient, pr.id, commitHeadline))
+  let promises = prs.map((pr) => mergePullRequest(graphQLClient, pr, commitHeadline));
   await Promise.all(promises);
   console.log('All merged!');
 };
