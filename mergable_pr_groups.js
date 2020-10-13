@@ -30,7 +30,7 @@ const query = `
 `;
 
 const variables = {
-    query: "is:open is:pr org:joshuaBE label:mergable" // "is:open is:pr org:kongo555"
+    query: "is:open is:pr org:joshuaBE label:mergable -label:\":snowman_with_snow: .\"" // "is:open is:pr org:kongo555"
 };
 
 function groupPRs(mergablePRs) {

@@ -69,7 +69,9 @@ async function main() {
             const { merge } = await mergeInput();
             if (merge) {
                 const { commitHeadline } = await commitHeadlineInput(title);
-                await mergeAll(graphQLClient, prs, commitHeadline);
+                if (commitHeadline) {
+                    await mergeAll(graphQLClient, prs, commitHeadline);
+                }
             }
         }
         console.log('');
